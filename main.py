@@ -1,13 +1,12 @@
 #!/usr/bin/python
 
-import sys
 import os
-import time
-import logging
 import re
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+import time
 import xml.etree.ElementTree as ET
+
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 
 class MyHandler(FileSystemEventHandler):
