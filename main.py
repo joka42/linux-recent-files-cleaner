@@ -15,7 +15,7 @@ class MyHandler(FileSystemEventHandler):
         self.counter = 0
         self.file_path = file_path
         self.pattern = re.compile("[a-zA-Z0-9]\/\.[a-zA-Z0-9].")
-        self.clean_content(False)
+        self.clean_content()
 
     def on_moved(self, event):
         if event.is_directory:
@@ -25,16 +25,18 @@ class MyHandler(FileSystemEventHandler):
             return
 
         print(f"{self.counter}: {event.dest_path}")
-        self.clean_content(True)
+        self.clean_content(5)
         self.counter += 1
 
-    def clean_content(self, only_last=False):
+    def clean_content(self, num_to_check=0):
         tree = ET.parse(self.file_path)
         root = tree.getroot()
         bookmarks = root.findall('bookmark')
 
-        if only_last:
-            bookmarks = bookmarks[-1:]
+        if num_to_check > len(bookmarks) or num_to_check <= 0:
+            num_to_check = len(bookmarks)
+
+        bookmarks = bookmarks[-num_to_check:]
 
         changed = False
         for bookmark in bookmarks:
@@ -53,6 +55,7 @@ if __name__ == "__main__":
     observer = Observer()
     handler = MyHandler(os.path.join(path, "recently-used.xbel"))
     observer.schedule(handler, path, recursive=False)
+    observer.daemon = True
     observer.start()
     try:
         while True:
