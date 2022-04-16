@@ -8,7 +8,7 @@ Script to clean your recent files used from files that are either hidden or are 
 create python environment
 
     python3 -m venv venv
-    . venv/bin/activate
+    source venv/bin/activate
     python3 -m pip install gnome-recent-files-cleaner
 
 run using 
