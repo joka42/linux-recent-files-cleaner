@@ -48,7 +48,7 @@ class MyHandler(FileSystemEventHandler):
             tree.write(self.file_path)
 
 
-if __name__ == "__main__":
+def run():
     path = os.path.join(os.environ["HOME"], ".local", "share")
     observer = Observer()
     handler = MyHandler(os.path.join(path, "recently-used.xbel"))
@@ -61,3 +61,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
+
+if __name__ == "__main__":
+    run()
