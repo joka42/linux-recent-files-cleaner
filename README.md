@@ -13,4 +13,4 @@ create python environment
 
 run using 
 
-    python -m gnome_recent_files_cleaner.grfc
+    python -m gnome_recent_files_cleaner
